@@ -35,25 +35,25 @@ export default function App() {
   if (!products) return <p>No profile data</p>
 
   return (
-    <div className='dashboard'>
-      <div className='swiper-container'>
+    <div>
+      <div>
 
-        <div className='card-container'>
+        <div>
 
           {
-            products.map((product) => (
+            products.map((product) => 
               <TinderCard 
               key={product.product_id} 
               className="swipe" 
               onSwipe={(direction) => swiped(direction,product.product_name)} 
               onCardLeft>
                 
-                <div style={{ backgroundImage: 'pp2.PNG' }} className='card'>
+                <div style={{ backgroundImage: 'url(https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQgByBT5IiAT_a2x9pUVb4VMoOrlzHH7Jrzj-HB5jzHlR4lNLMS)' }} className='card'>
                   <h3>{product.product_name}</h3>
                </div>
               
               </TinderCard>
-            ))
+            )
           }
 
         </div>
