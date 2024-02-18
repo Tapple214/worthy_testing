@@ -1,10 +1,31 @@
 'use client'
 
-import { Container, Row, Col, Carousel } from 'react-bootstrap';
-import '@/app/components/card.css';
+// Card component
+
+// React imports
+import React from 'react'; 
 import { useState } from 'react';
+import { Container, Row, Col } from 'react-bootstrap';
+
+// Image enabler
+import Image from 'next/image';
+
+// CSS imports
+import 'bootstrap/dist/css/bootstrap.css';
+import '@/app/components/card/card.css';
+
+// Image imports
+import pic from '@/app/components/card/pp.PNG'
+import pic2 from '@/app/components/card/slippers.jpg'
 
 export default function Card({id, userName, pickupLocation, rank, userLikes, userSupporters, userAssets, dateJoined, productName, productDescription }) {
+    
+    // Capitlizing the first letter
+    userName = userName.charAt(0).toUpperCase() + userName.slice(1);
+    pickupLocation = pickupLocation.charAt(0).toUpperCase() + pickupLocation.slice(1);
+    productName = productName.charAt(0).toUpperCase() + productName.slice(1);
+    productDescription = productDescription.charAt(0).toUpperCase() + productDescription.slice(1);
+
     const [show, setShow] = useState(false);
     const [showDescription, setShowDescription] = useState(false);
 
@@ -35,52 +56,29 @@ export default function Card({id, userName, pickupLocation, rank, userLikes, use
         transform: show ? 'translateY(50px)' : 'translateY(0)',
     };
 
-    const buttonStyle = {
-        position: 'relative',
-        bottom: '4vh',
-        color: 'white',
-    };
-
-    const sizing = {
-        height: 'auto',
-    };
-
     const [index, setIndex] = useState(0);
 
     const handleSelect = (selectedIndex) => {
         setIndex(selectedIndex);
     };
 
-    const handleSwipeUp = () => {
-        setIndex((prevIndex) => (prevIndex + 1) % data.length);
-    };
-
-    const CustomLeftArrow = ({ onClick }) => (
-        <div className="custom-left-arrow" onClick={onClick}>
-            <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" className="bi bi-caret-left-square-fill" viewBox="0 0 16 16">
-                <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm10.5 10V4a.5.5 0 0 0-.832-.374l-4.5 4a.5.5 0 0 0 0 .748l4.5 4A.5.5 0 0 0 10.5 12"/>
-            </svg>
-        </div>
-    );
-
-    const CustomRightArrow = ({ onClick }) => (
-        <div className="custom-right-arrow" onClick={onClick}>
-            <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" className="bi bi-caret-right-square-fill" viewBox="0 0 16 16">
-                <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm5.5 10a.5.5 0 0 0 .832.374l4.5-4a.5.5 0 0 0 0-.748l-4.5-4A.5.5 0 0 0 5.5 4z"/>
-            </svg>
-        </div>
-    );
-
-
     return (
-        <>
-                <div className='card' >
-                    {/* <Image src={item.image} className={`card ${show ? 'dim' : ''}`} layout='fill' objectFit='cover' /> */}
+        <Container>
+            <Row className='d-flex justify-content-center mx-auto w-auto h-auto'> 
+                <Col xs='11' lg='6'> 
+
+                    {/* Card entity */}
+                    <div className='card' key={index}>
+
+                    {/* pic 2 will be a placeholder for the time being */}
+                    <Image src={pic2} alt='Image of product' className={`card ${show ? 'dim' : ''}`} layout='fill' objectFit='cover' />
+
                     <div style={imageOverlayStyle}></div>
 
-                    <Row className='mx-auto d-flex flex-column justify-content-center' style={{...cardContentStyle}}>
-
-                        {/* Card title section/row */}
+                    {/* Card content */}
+                    <Row className='mx-auto d-flex flex-column justify-content-center w-auto' style={{...cardContentStyle}}>
+                        
+                        {/* Title + toggle button */}
                         <Col className='d-flex align-items-center w-auto' xs='12' lg='11'>
                             <div className='w-100'>
                                 <h2 style={{transition: 'opacity 0.5s'}}>{productName}</h2>
@@ -89,30 +87,30 @@ export default function Card({id, userName, pickupLocation, rank, userLikes, use
                             <Col className='d-flex'>
                                 {!show ? (
                                     // up arrow
-                                    <svg onClick={toggleArrow} xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-arrow-up-circle-fill" viewBox="0 0 16 16">
+                                    <svg onClick={toggleArrow} xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-up-circle-fill" viewBox="0 0 16 16">
                                         <path d="M16 8A8 8 0 1 0 0 8a8 8 0 0 0 16 0m-7.5 3.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707z"/>
                                     </svg>
                                 ) : (
                                     // down arrow
-                                    <svg onClick={toggleArrow} xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-arrow-down-circle-fill" viewBox="0 0 16 16">
+                                    <svg onClick={toggleArrow} xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-down-circle-fill" viewBox="0 0 16 16">
                                         <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293z"/>
                                     </svg> 
                                 )}
                             </Col>
                         </Col>
 
-                        {/* Pickup location */}
+                        {/*  location info  */}
                         <Col className='d-flex'>
                             <Col>
                                 <h5 className='d-flex align-items-center'>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
                                         <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6" />
                                     </svg>
-                                    {pickupLocation}
+                                    &nbsp; {pickupLocation}
                                 </h5>
                             </Col>
                         </Col>
-
+                        
                         {/* Horizontal line */}
                         <Row>
                             <Col>
@@ -120,10 +118,10 @@ export default function Card({id, userName, pickupLocation, rank, userLikes, use
                             </Col>
                         </Row>
 
-                        {/* Description section + seller information */}
+                        {/* Product details + user details */}
                         <div className={`descriptionBox ${showDescription ? 'visible' : ''} w-auto mx-auto`}>
                             
-                            {/* description */}
+                            {/* Product description */}
                             <Col xs='12' lg='11' className='pb-2 w-auto'>
                                 <p className='limited-text'>{productDescription}</p>
                                 
@@ -133,43 +131,53 @@ export default function Card({id, userName, pickupLocation, rank, userLikes, use
                                     </span>
                                 </div>
                             </Col>
-
-                            {/* Seller information */}
-                            <Col className='ps-2'>
-                                <div style={{ display: 'flex', alignItems: 'center' }}>
-                                    <h1 className='fw-bold'>{userName}</h1>
-                                    <h5 style={{ marginLeft: '10px' }}>{rank}</h5>
-                                </div>
+                        
+                            {/* User details */}
+                            <Row xs='12' lg='12' className='d-flex flex-row w-auto justify-content-center mx-auto pt-2 w-auto'>
                                 
-                                {/* Date joined */}
-                                <h5>{dateJoined}</h5>
+                                {/* User details + rank */}
+                                <Col className='d-flex'>
+                                    <div className='ps-3'> 
+                                        <div className='profilePic mt-1 ms-2'>
+                                            <Image src={pic} alt='Profile picture' width={1000} height={1000} className='rounded-circle' />
+                                        </div>
+                                    </div>
 
-                                {/* Seller stats */}
-                                <div className='d-flex text-center'>
-                                    <ul style={{ margin: '0', marginLeft: '-9px', marginRight: '2px', padding: '0', display: 'flex', justifyContent: 'space-around', width: '100%', alignItems: 'center' }}>
-                                        <li style={{ width: '20%' }}>
-                                            <p><span className='fw-bold' style={{ fontSize: '14px' }}>{userLikes}</span>&nbsp; Likes</p>
-                                        </li>
+                                    <Col className='ps-4'>
+                                        <div style={{ display: 'flex', alignItems: 'center' }}>
+                                            <h1 className='fw-bold'>{userName}</h1>
+                                            <h5 style={{ marginLeft: '10px' }}>{rank}</h5>
+                                        </div>
 
-                                        <li style={{ width: '5%', textAlign: 'center', height: '30px' }}>
-                                            <h3>·</h3>
-                                        </li>
+                                        <h5>Joined on  {dateJoined ? new Date(dateJoined).toLocaleString() : null}</h5>
 
-                                        <li style={{ width: '25%' }}>
-                                            <p><span className='fw-bold' style={{ fontSize: '14px' }}>{userSupporters}</span>&nbsp; Supporters</p>
-                                        </li>
+                                        <div className='d-flex text-center'>
+                                            <ul style={{ margin: '0', marginLeft: '-9px', marginRight: '2px', padding: '0', display: 'flex', justifyContent: 'space-around', width: '100%', alignItems: 'center' }}>
+                                                <li style={{ width: '20%' }}>
+                                                    <p><span className='fw-bold' style={{ fontSize: '14px' }}>{userLikes}</span>&nbsp; Likes</p>
+                                                </li>
 
-                                        <li style={{ width: '5%', textAlign: 'center', height: '30px' }}>
-                                            <h3>·</h3>
-                                        </li>
+                                                <li style={{ width: '5%', textAlign: 'center', height: '30px' }}>
+                                                    <h3>·</h3>
+                                                </li>
 
-                                        <li style={{ width: '20%' }}>
-                                            <p><span className='fw-bold' style={{ fontSize: '14px' }}>{userAssets}</span>&nbsp; Assets</p>
-                                        </li>
-                                    </ul>
-                                </div>
+                                                <li style={{ width: '25%' }}>
+                                                    <p><span className='fw-bold' style={{ fontSize: '14px' }}>{userSupporters}</span>&nbsp; Supporters</p>
+                                                </li>
 
-                                {/* Seller pickup details + report features*/}
+                                                <li style={{ width: '5%', textAlign: 'center', height: '30px' }}>
+                                                    <h3>·</h3>
+                                                </li>
+
+                                                <li style={{ width: '20%' }}>
+                                                    <p><span className='fw-bold' style={{ fontSize: '14px' }}>{userAssets}</span>&nbsp; Assets</p>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </Col>  
+                                </Col>
+
+                                {/* Pickup location + report buttons */}
                                 <Row className='d-flex w-100 ps-3'>
                                     <Col className='d-flex flex-column mx-auto w-100 h-25 pt-2'>
                                         <h1 className='text-center fw-medium pt-1'>
@@ -196,31 +204,14 @@ export default function Card({id, userName, pickupLocation, rank, userLikes, use
                                             </button>
                                         </Col>
                                     </Col>
-                                </Row> 
-                            </Col>
-
+                                </Row>  
+                            </Row>
                         </div>
+                    </Row>  
+                    </div>
 
-                    </Row>
-                </div>
-        </>
-    )   
-}
-
-
-export default function Card({id, userName, pickupLocation, rank, userLikes, userSupporters, userAssets, dateJoined, productName, productDescription }) {
-
-    return (
-        <div className="border border-white rounded p-5">
-            <h1>{userName}</h1> 
-            <p>{pickupLocation}</p>
-            <p>{rank}</p>    
-            <p>{userLikes}</p>
-            <p>{userSupporters}</p>
-            <p>{userAssets}</p>
-            <p>{dateJoined}</p>
-            <p>{productName}</p>
-            <p>{productDescription}</p>
-        </div>
+                </Col>
+            </Row>
+        </Container>
     )
 }

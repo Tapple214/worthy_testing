@@ -1,3 +1,5 @@
+'use client'
+
 import React, { useState, useMemo, useRef } from 'react'
 import TinderCard from 'react-tinder-card'
 
@@ -105,11 +107,15 @@ function Advanced () {
           </TinderCard>
         ))}
       </div>
+
       <div className='buttons'>
+        <button style={{ backgroundColor: !canSwipe && '#c3c4d3' }} onClick={() => swipe('up')}>Swipe up!</button>
+        <button style={{ backgroundColor: !canSwipe && '#c3c4d3' }} onClick={() => swipe('down')}>Swipe down!</button>
         <button style={{ backgroundColor: !canSwipe && '#c3c4d3' }} onClick={() => swipe('left')}>Swipe left!</button>
         <button style={{ backgroundColor: !canGoBack && '#c3c4d3' }} onClick={() => goBack()}>Undo swipe!</button>
         <button style={{ backgroundColor: !canSwipe && '#c3c4d3' }} onClick={() => swipe('right')}>Swipe right!</button>
       </div>
+      
       {lastDirection ? (
         <h2 key={lastDirection} className='infoText'>
           You swiped {lastDirection}
